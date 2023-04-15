@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Books", type: :request do
+  # initialize test data
   let!(:books) { create_list(:book, 10) }
-  let(:book_id) { books.first.id }
+  let!(:book_id) { books.first.id }
 
   describe 'GET /books' do
     before { get '/api/v1/books'}
@@ -73,7 +74,7 @@ RSpec.describe "Books", type: :request do
   describe 'PUT /books/:id' do
     let(:valid_attribs) {{ title: 'Saffron Swords' }}
 
-    before( put "/api/v1/books/#{book_id}", params: valid_attribs)
+    before { put "/api/v1/books/#{book_id}", params: valid_attribs}
 
     context 'when book exists' do
       it 'returns status code 422' do
