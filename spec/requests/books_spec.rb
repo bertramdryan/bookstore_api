@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe "Books", type: :request do
   # initialize test data
   let!(:books) { create_list(:book, 10) }
-  let!(:book_id) { books.first.id }
+  let(:book_id) { books.first.id }
 
   describe 'GET /books' do
     before { get '/api/v1/books'}
 
     it 'returns list of books' do
-      expect(json).not_to be.empty
+      expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
 
@@ -35,11 +35,11 @@ RSpec.describe "Books", type: :request do
       let(:book_id) { 0 }
 
       it 'returns status code 404' do
-        expects(response).to have_http_status(404)
+        expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
-        expect(response.body).to include("Couldn't find book with 'id'=0")
+        expect(response.body).to include("Couldn't find Book with 'id'=0")
       end
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe "Books", type: :request do
       before { post '/api/v1/books', params: valid_attribs }
 
       it 'returns status code 201' do
-        expects(response).to have_http_status(201)
+        expect(response).to have_http_status(201)
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe "Books", type: :request do
       before { post '/api/v1/books', params: {} }
 
       it 'returns status code 422' do
-        expects(response).to have_http_status(422)
+        expect(response).to have_http_status(422)
       end
 
       it 'returns a failure message' do
@@ -77,13 +77,13 @@ RSpec.describe "Books", type: :request do
     before { put "/api/v1/books/#{book_id}", params: valid_attribs}
 
     context 'when book exists' do
-      it 'returns status code 422' do
-        expects(response).to have_http_status(422)
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
       end
 
       it 'updates the book' do
         updated_item = Book.find(book_id)
-        expect(updated_item.item).to match(/Saffron Swords/)
+        expect(updated_item.title).to match(/Saffron Swords/)
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe "Books", type: :request do
       let(:book_id)  { 0 }
 
       it 'returns status code 404' do
-        expects(response).to have_http_status(404)
+        expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
@@ -103,8 +103,8 @@ RSpec.describe "Books", type: :request do
   describe 'DELETE /books/:id' do
     before { delete "/api/v1/books/#{book_id}" }
    
-    it 'returns status code 404' do
-      expects(response).to have_http_status(404)
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end
