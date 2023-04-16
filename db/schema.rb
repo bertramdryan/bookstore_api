@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_13_005428) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_185950) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["category_id"], name: "index_books_on_category_id"
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -26,5 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_005428) do
     t.datetime "updated_at", null: false
   end
 
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
   add_foreign_key "books", "categories"
+  add_foreign_key "books", "users"
 end
