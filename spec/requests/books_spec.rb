@@ -48,7 +48,7 @@ RSpec.describe "Books", type: :request do
     let!(:history) { create(:category) }
     let!(:student_user) { create(:user) }
     let(:valid_attribs) do
-      {title: 'Whispers of Time', author: 'Dr. Krishma Saksena',category_id: history.id }
+      {title: 'Whispers of Time', author: 'Dr. Krishma Saksena',category_id: history.id, user_id: student_user.id }
     end
 
     context 'when request attributes are valid' do
