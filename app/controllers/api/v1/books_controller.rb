@@ -14,6 +14,7 @@ module Api
                 if @book.save
                     render json: BookRepresenter.new(@book).as_json, status: :created
                 else
+                    puts @book.errors
                     render json: @book.errors, status: :unprocessable_entity
                 end
             end
@@ -35,7 +36,7 @@ module Api
             private
 
             def book_params
-                params.permit(:title, :author, :category_id)
+                params.permit(:title, :author, :category_id, :user_id)
             end
 
             def set_book

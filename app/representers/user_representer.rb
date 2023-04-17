@@ -1,5 +1,5 @@
 class UserRepresenter
-  def initiaize(user)
+  def initialize(user)
     @user = user
   end
 

@@ -9,7 +9,7 @@ RSpec.describe "Users", type: :request do
       expect(json).to eq({
         'id' => User.last.id,
         'username' => 'user1',
-        'token' => AuthenticationTokenService.call(user.last.id)
+        'token' => AuthenticationTokenService.call(User.last.id)
       })
     end
   end

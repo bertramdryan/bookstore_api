@@ -46,8 +46,9 @@ RSpec.describe "Books", type: :request do
 
   describe 'POST /books/:id' do
     let!(:history) { create(:category) }
+    let!(:student_user) { create(:user) }
     let(:valid_attribs) do
-      {title: 'Whispers of Time', author: 'Dr. Krishma Saksena', category_id: history.id }
+      {title: 'Whispers of Time', author: 'Dr. Krishma Saksena',category_id: history.id }
     end
 
     context 'when request attributes are valid' do
@@ -75,6 +76,7 @@ RSpec.describe "Books", type: :request do
     let(:valid_attribs) {{ title: 'Saffron Swords' }}
 
     before { put "/api/v1/books/#{book_id}", params: valid_attribs}
+
 
     context 'when book exists' do
       it 'returns status code 204' do
